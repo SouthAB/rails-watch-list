@@ -25,5 +25,4 @@ movies["results"].each do |result|
   movie.save
 end
 
-
 puts 'done seeding'

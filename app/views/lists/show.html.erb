@@ -1,11 +1,21 @@
 <h1><%= @list.name %></h1>
 
 <br>
-<%= simple_form_for @list do |f| %>
-  <%= f.input :name, placeholder: "Add your name list here..." %>
-  <%= f.submit "Ajouter un movie", class: "btn btn-primary" %>
-<% end %>
+  <%= simple_form_for [@list, Bookmark.new] do |f| %>
+    <%= f.association :movie, placeholder: "Add your movie here..." %>
+    <%= f.input :comment, placeholder: "Add your comment here..." %>
+
+    <%= f.submit "Ajouter un movie", class: "btn btn-primary" %>
+  <% end %>
 <br>
 
+<% @list.bookmarks.each do |bookmark| %>
+  <p><%= bookmark.movie.title %></p>
+  <p><%= bookmark.comment %></p>
+<% end %>
+
+
+
+
 <%= link_to "Return to the lists", lists_path, class: 'btn btn-primary' %>
-<%= link_to "Delete a list", list_path(@list)%>
+<%= link_to "delete this list", list_path(@list), method: :delete, class: "btn btn-cancel", data: { confirm: "Are you sure you want to delete this list?" } %>
